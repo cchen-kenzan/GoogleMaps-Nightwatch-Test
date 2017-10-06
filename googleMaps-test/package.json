@@ -1,0 +1,16 @@
+{
+  "name": "nightwatch-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "e2e": "nightwatch --config nightwatch.conf.BASIC.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nightwatch": "^0.9.16",
+    "selenium-download": "^2.0.10"
+  }
+}
