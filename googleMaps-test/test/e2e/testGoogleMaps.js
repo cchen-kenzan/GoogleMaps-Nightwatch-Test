@@ -1,51 +1,38 @@
+'use strict';
 
 module.exports = { 
-  'Smoketest loading google.com': function(browser) {
-    browser
-      .url('http://www.google.com')
-      .waitForElementVisible('body')
-      .waitForElementVisible('#lst-ib')
-      .waitForElementPresent('.hp.vasq')
-      .assert.title('Google')
-      .assert.elementPresent('#lst-ib')
-      .saveScreenshot('google-smoketest.png');
-
-      browser.expect.element('#lst-ib').to.be.present;
+  'Should Navigate to Google Maps': function(browser) {
+    var google = browser.page.google();
+    google.navigate()
+      .navigateToMaps()
+      // .navigateToLink('@optionsMenu')
+      // .navigateToLink('@mapsLink')
+      .assert.urlContains("www.google.com/maps");
+    browser.saveScreenshot('google-maps-po.png');
   },
-  'Open Google Options': function(browser) {
-    browser
-      	.click('.gb_b.gb_6b', function(response) {
-      		//console.log(response);
-      		 browser
-      			.waitForElementVisible('.gb_ia.gb_ba')
-            .waitForElementVisible('[href*="maps.google.com"]')
-            .saveScreenshot('google-options.png');
-      });
+  'Should Navigate to Google About Link': function(browser) {
+    var google = browser.page.google();
+    google.navigate()
+      .navigateToLink('@aboutLink')
+      .assert.urlContains('about');
+    browser.saveScreenshot('google-about-po.png');
   },
-  'Navigate to Google Maps': function(browser) {
-    browser
-      .click('[href*="maps.google.com"]', function(response) {
-        //console.log(response);
-        browser
-          .waitForElementVisible('#searchboxinput.tactile-searchbox-input')
-          .assert.urlContains("www.google.com/maps")
-          //.assert.urlEquals("https://www.google.com/maps/@39.7511873,-105.0031571,15z?hl=en")
-          //come back to seeing if i can get it to load with my specific coordinates
-          //I might not want to do this though because it makes the test more brittle & only pass from my location
-          .saveScreenshot('google-maps.png');
-      });
+  'Should Navigate to Google Store Link': function(browser) {
+    var google = browser.page.google();
+    google.navigate()
+      .navigateToLink('@storeLink')
+      .assert.urlContains('store.google.com');
+    browser.saveScreenshot('google-store-po.png');
   },
-  'Search for Location - Coors Field': function(browser) {
-    browser
-      .setValue('#searchboxinput.tactile-searchbox-input', 'coors field, denver, co', function(response) {
-        browser.click('#searchbox-searchbutton', function(response) {
-          browser
-            .waitForElementVisible('.section-hero-header-title')
-            .saveScreenshot('google-maps-coors.png');
-        });
-      });
-      // .clearValue('#searchboxinput.tactile-searchbox-input', function(response) {
-      // });
+  'Should Search Google Maps for Coors Fields and find the location': function(browser) {
+    var searchCoors = 'coors field, denver, co'
+    var googleMaps = browser.page.googleMaps();
+    googleMaps.navigate()
+    .setValue('@searchBox', searchCoors)
+    .submitSearch();
+    var searchResults = googleMaps.section.searchResults;
+    searchResults.expect.element('@heroTitle').to.be.visible;
+    browser.saveScreenshot('google-coorsFieldSearch-po.png');
     browser.end();
   }
 };
