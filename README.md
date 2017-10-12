@@ -13,7 +13,7 @@ npm install
 ```
 Note: This will install Selenium and Nightwatch.
 
-## 3. Run FE tests on Google Maps
+## 3. Run E2E tests on Google Maps
 ```
 npm run e2e
 ```
