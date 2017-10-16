@@ -1,0 +1,11 @@
+# Node Dependencies installed by NPM Install #
+./nodemodules/*
+
+# XML Results from running tests #
+./reports/*
+
+# Screenshots from running the tests #
+*.png
+
+# Log files produced from running the tests #
+*.log
