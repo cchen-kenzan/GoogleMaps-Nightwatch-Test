@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "e2e": "nightwatch --config nightwatch.conf.BASIC.js"
+    "e2e": "nightwatch --config nightwatch.conf.BASIC.js",
+    "postinstall": "node nightwatch.conf.BASIC.js"
   },
   "keywords": [],
   "author": "",
